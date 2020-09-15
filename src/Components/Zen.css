@@ -1,0 +1,26 @@
+.Zen.problem {
+    font-size: 30px;
+    display: flex;
+}
+.Zen.problem .input .answer{
+    font-size: 30px;
+    border: none;
+}
+.Zen.problem .input .answer:focus {
+    outline: none;
+}
+
+.problem-list {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.Zen.video {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+}
+.Zen button {
+    display: none;
+}
