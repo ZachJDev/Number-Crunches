@@ -3,11 +3,28 @@ const getRandom = function (array) {
   return array[num];
 };
 
+class BASE_RULES {
+  constructor() {
+    this.max = 3;
+    this.min = 1;
+    this.startTime = 10;
+    this.totalProblems =100;
+    this.practice = false;
+    
+  }
+}
+
 class GameMode {
   constructor(params) {
     Object.assign(this, params);
+    this.hasTimer = !this.practice;
+    this.bonus = 2;
+    this.ticks = true;
+    this.clockDirection = 1
+    this.hasSkip = true;
   }
   compute(n1, n2, s) {
+    
     if (s === "*") return n1 * n2;
     if (s === "+") return n1 + n2;
     if (s === "-") return n1 - n2;
@@ -19,32 +36,55 @@ class GameMode {
   }
 
   getNewProblem() {
-      let n1, n2;
-      const sign = getRandom(this.signs);
-      do {
-         [n1,n2] = this.getNewNumbers();
-      } while (sign === "/" && n2 === 0); // Avoid 0 in the denominator
-      return [n1,n2,sign]
+    let n1, n2;
+    const sign = getRandom(this.signs);
+    do {
+      [n1, n2] = this.getNewNumbers();
+    } while (sign === "/" && n2 === 0); // Avoid 0 in the denominator
+    return [n1, n2, sign];
   }
 
   getNewNumbers() {
     return [this.getRandomInt(), this.getRandomInt()];
+  }
+  get isFinished() {
+    return false;
+  }
+
+  static newGame(options) {
+    switch (options.mode) {
+      case "Normal":
+        return new Normal(options);
+      case "Blitz":
+        return new Blitz(options);
+      case "Zen":
+        return new Zen(options);
+      case "Multiplication Tables":
+        return new MultiplicationTables(options);
+    }
   }
 }
 
 class Normal extends GameMode {
   constructor(params) {
     super(params);
-    this.hasTimer = true;
   }
   static getDefaultRules() {
-    return {id:'Normal', ticks: true, defaultTick: 3, timer: 'down', practice: true}
+    return Object.assign(new BASE_RULES(), {
+      id: "Normal",
+      hasPractice: true,
+    });
   }
 }
 
 class MultiplicationTables extends GameMode {
   constructor(params) {
     super(params);
+    this.initGame();
+    this.clockDirection = 1
+    this.hasSkip = false;
+  }
+  initGame() {
     this.table = [];
     this.problem = 0;
     for (let i = this.min; i <= this.max; i++) {
@@ -63,37 +103,50 @@ class MultiplicationTables extends GameMode {
     this.table = this.table.filter((tuples) => {
       return tuples !== nums;
     });
-    return nums
+    return nums;
+  }
+  get isFinished(){
+    if( this.problem ===this.table.length){
+      this.initGame();
+       return true;}
+    return false
   }
 
   static getDefaultRules() {
-    return {id: 'Multiplication Tables', ticks: true, practice: true, timer: 'down', defaultTick: 3}
+    return Object.assign(new BASE_RULES(), {
+      id: "Multiplication Tables",
+      ticks: true,
+      hasPractice: true,
+    });
   }
-
 }
 
 class Zen extends GameMode {
- constructor(params) {
-     super(params);
-     this.hasTimer = false;
- }
- static getDefaultRules() {
-   return {id: 'Zen', ticks: false, timer: 'none',}
- }
+  constructor(params) {
+    super(params);
+    this.hasTimer = false;
+  }
+  static getDefaultRules() {
+    return Object.assign(new BASE_RULES(), {
+      id: "Zen",
+    });
+  }
 }
 
 class Blitz extends GameMode {
   constructor(params) {
     super(params);
-    this.hasTimer = true;
+    this.clockDirection = -1;
+    this.startTime = 3;
+    this.bonus = 0;
   }
   static getDefaultRules() {
-    return {id:'Blitz', ticks: false, timer: 'up', defaultTotal: 100}
+    return Object.assign(new BASE_RULES(), {
+      id: "Blitz",
+      defaultTotal: 100,
+    });
   }
 }
-// let n = new NormalGame({ max: 10, min: 1 });
-// for (let i = 0; i < 100; i++) {
-//   console.log(n.getNewNumbers());
-// }
 
-export {Normal, MultiplicationTables, Zen, Blitz}
+export default GameMode;
+export { Normal, MultiplicationTables, Zen, Blitz };

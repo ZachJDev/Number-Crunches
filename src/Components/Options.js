@@ -6,15 +6,18 @@ import * as Modes from "./Modes";
 let Rules ={} 
 
 Object.keys(Modes).forEach(mode => {
+  if(!!Modes[mode].getDefaultRules){ // This stops the abstract GameMode class from being added to the list
   let r = Modes[mode].getDefaultRules()
      Rules[r.id] = r
+  }
   })
 
 
 export default class Options extends Component {
   constructor(props) {
     super(props);
-    this.state = { tick: 3, mode: "Zen", signs: ["*", "+", "/", "-"], max: 50, min: 0 };
+    this.state = { mode: "Normal", signs: ["*", "+", "/", "-"]};
+    Object.assign(this.state, Rules['Normal'])
     this.radios = [...Object.values(Rules)];
   }
 
@@ -23,13 +26,27 @@ export default class Options extends Component {
     this.props.handleOptions(this.state);
   };
   handleChange = (event, value) => {
-    this.setState({ [event.target.name]: event.target.value });
+    console.log(event.target.name, event.target.value)
+    if(event.target.name === 'practice') {
+      let practice = this.state.practice;
+      this.setState({[event.target.name]: !practice });
+    } else {
+      this.setState({ [event.target.name]: event.target.value });
+    }
+
+    if(event.target.value === 'Multiplication Tables') {
+      this.setState({ signs: ['*']})
+    }
   };
   handleCheckboxChange = (value) => {
+    if(this.state.mode === 'Multiplication Tables') {
+      this.setState({ signs: ['*']})
+    } else {
     let signs = this.state.signs
     if(signs.includes(value)) signs = signs.filter(s => s !== value)
     else signs.push(value);
     this.setState({signs})
+    }
   }
 
   render() {
@@ -65,22 +82,29 @@ export default class Options extends Component {
             {Rules[this.state.mode].defaultTotal ?
             <div>
             <h2>Number of Problems</h2>
-            <input type="number" name="total" value={this.state.total} handleChange={this.handleChange}></input>
+            <input type="number" name="totalProblems" value={this.state.totalProblems} onChange={this.handleChange}></input>
             </div>
             : null
             }
-
-            {Rules[this.state.mode].practice ? (
+            {Rules[this.state.mode].hasPractice ? (
               <div>
                 <h2>Practice Mode?</h2>
                 <RadioGroup
                   handleChange={this.handleChange}
                   name="practice"
                   radios={[{ id: "On" }, { id: "Off" }]}
-                  checked={this.state.practice}
+                  checked={this.state.practice === true ? "On": "Off"}
                 />
               </div>
             ) : null}
+            {Rules[this.state.mode].timer === 'down' && !this.state.practice ?
+
+            <div>
+            <h2>Start Time on Clock?</h2>  
+            <input type="number" value={this.state.startTime} name='startTime' onChange={this.handleChange}/>
+            </div>
+            : null
+            }
 
 
           </div>

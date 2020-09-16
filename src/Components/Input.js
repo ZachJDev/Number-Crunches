@@ -22,7 +22,10 @@ export default class Input extends Component {
               onChange={this.handleInput}
               value={this.props.input}
             ></input>
+            {this.props.hasSkip ? 
             <button onClick={this.handleUpdateProblem}>{this.props.isGameOver ? 'restart': 'skip'}</button>
+            : null
+            }
           </div>
         )
     }
