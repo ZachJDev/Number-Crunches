@@ -50,28 +50,29 @@ export default class MathTrainer extends Component {
     let { num1, num2, sign, answer } = this.state.problem;
     this.setState({ input: val });
     if (this.state.problem.answer == val) {
-      this.setState({problems: [...this.state.problems, `${num1} ${sign} ${num2} = ${answer}`]});
-      if(!this.Game.isFinished) {
-        this.updateProblem();
-      }
-      else {
-        this.endGame()
-      }
+      this.setState({problems: [...this.state.problems, `${num1} ${sign} ${num2} = ${answer}`]}, () => {
+        if(!this.Game.isFinished(this.state.problems.length)) {
+          this.updateProblem();
+        }
+        else {
+          this.endGame()
+        }
+      });
     }
   };
   endGame = () => {
-    clearInterval(this.state.timer);
+    clearInterval(this.state.timerTimeLeft);
+    clearInterval(this.state.timerTimeTaken);
     this.setState({ isGameOver: true, timeLeft: 0 });
   }
   tickTimer = () => {
     // This feels pretty hacky to me, will probably want to clean up later.
     if (this.state.timeLeft > 1) {
       this.setState((s) => ({
-        timeLeft: s.timeLeft - this.Game.clockDirection,
+        timeLeft: s.timeLeft - 1,
       }));
     } else if (this.state.timeLeft === 1) {
-      clearInterval(this.state.timer);
-      this.setState({ isGameOver: true, timeLeft: 0 });
+      this.endGame();
     }
   };
   componentDidMount() {
@@ -84,9 +85,15 @@ export default class MathTrainer extends Component {
     if (this.Game.hasTimer) {
       this.setState({
         timeLeft: this.Game.startTime,
-        timer: setInterval(() => {
+        timeTaken: 0,
+        timerTimeLeft: setInterval(() => {
           this.tickTimer();
         }, 1000),
+        timerTimeTaken: setInterval(()=> {
+          this.setState((s) => ({
+            timeTaken: s.timeTaken + 1,
+          }));
+        }, 1000)
       });
     }
   };
@@ -127,7 +134,7 @@ export default class MathTrainer extends Component {
         </div>
         
         {!this.state.isGameOver ? (
-          <h2>{!this.Game.hasTimer || this.state.timeLeft}</h2>
+          <h2>{!this.Game.hasTimer || this.state.timeLeft || this.state.timeTaken}</h2>
         ) : (
           <GameOverMessage restart={this.restart} />
         )}

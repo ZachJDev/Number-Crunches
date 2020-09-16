@@ -8,7 +8,7 @@ class BASE_RULES {
     this.max = 3;
     this.min = 1;
     this.startTime = 10;
-    this.totalProblems =100;
+    this.totalProblems =5;
     this.practice = false;
     
   }
@@ -47,7 +47,7 @@ class GameMode {
   getNewNumbers() {
     return [this.getRandomInt(), this.getRandomInt()];
   }
-  get isFinished() {
+   isFinished() {
     return false;
   }
 
@@ -105,7 +105,7 @@ class MultiplicationTables extends GameMode {
     });
     return nums;
   }
-  get isFinished(){
+  isFinished(){
     if( this.problem ===this.table.length){
       this.initGame();
        return true;}
@@ -137,13 +137,23 @@ class Blitz extends GameMode {
   constructor(params) {
     super(params);
     this.clockDirection = -1;
-    this.startTime = 3;
+    this.startTime = 0;
     this.bonus = 0;
   }
+
+  // I don't like this being a method. I need to figure a way to keep the game logic separate from the game rules
+  isFinished(probNum) {
+    // console.log(this.totalProblems)
+    if (probNum === this.totalProblems) {
+      return true;
+    }
+    return false;
+  }
+   
   static getDefaultRules() {
     return Object.assign(new BASE_RULES(), {
       id: "Blitz",
-      defaultTotal: 100,
+      problemCount: true,
     });
   }
 }

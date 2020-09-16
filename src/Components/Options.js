@@ -16,7 +16,7 @@ Object.keys(Modes).forEach(mode => {
 export default class Options extends Component {
   constructor(props) {
     super(props);
-    this.state = { mode: "Normal", signs: ["*", "+", "/", "-"]};
+    this.state = { mode: "Normal", signs: [ "+", "-"]};
     Object.assign(this.state, Rules['Normal'])
     this.radios = [...Object.values(Rules)];
   }
@@ -26,7 +26,6 @@ export default class Options extends Component {
     this.props.handleOptions(this.state);
   };
   handleChange = (event, value) => {
-    console.log(event.target.name, event.target.value)
     if(event.target.name === 'practice') {
       let practice = this.state.practice;
       this.setState({[event.target.name]: !practice });
@@ -79,7 +78,7 @@ export default class Options extends Component {
             <CheckboxGroup boxes={["*", "+", "/", "-"]} checked={this.state.signs} handleChange={this.handleCheckboxChange}/>
 
 
-            {Rules[this.state.mode].defaultTotal ?
+            {Rules[this.state.mode].problemCount ?
             <div>
             <h2>Number of Problems</h2>
             <input type="number" name="totalProblems" value={this.state.totalProblems} onChange={this.handleChange}></input>
