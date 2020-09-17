@@ -50,6 +50,7 @@ export default class MathTrainer extends Component {
     let { num1, num2, sign, answer } = this.state.problem;
     this.setState({ input: val });
     if (this.state.problem.answer == val) {
+    
       this.setState(
         {
           problems: [
@@ -59,6 +60,9 @@ export default class MathTrainer extends Component {
         },
         () => {
           if (!this.Game.isFinished(this.state.problems.length)) {
+            if (this.state.problems.length  % 5 === 0) { // I may want to abstract the threshold into the Mode classes.
+              this.Game.increaseChallenge();
+            }
             this.updateProblem();
           } else {
             this.endGame();
@@ -70,7 +74,11 @@ export default class MathTrainer extends Component {
   endGame = () => {
     clearInterval(this.state.timerTimeLeft);
     clearInterval(this.state.timerTimeTaken);
-    this.setState(s=>({ isGameOver: true, timeLeft: 0, timeTaken: s.timeTaken + 1 }));
+    this.setState((s) => ({
+      isGameOver: true,
+      timeLeft: 0,
+      timeTaken: s.timeTaken + 1, // The timeLeft timer doesn't actually count all the way to 0, so this little addition gets the last second.
+    }));
   };
   tickTimer = () => {
     // This feels pretty hacky to me, will probably want to clean up later.
@@ -82,10 +90,7 @@ export default class MathTrainer extends Component {
       this.endGame();
     }
   };
-  componentDidMount() {
-    this.restart();
-  }
-
+  
   restart = () => {
     this.updateProblem();
     this.setState({ isGameOver: false, problems: [] });
@@ -104,15 +109,19 @@ export default class MathTrainer extends Component {
       });
     }
   };
-
+  
   handleOptions = () => {
     this.props.handleRestart();
   };
-
+  
+  componentDidMount() {
+    this.restart();
+  }
   render() {
     let { num1, num2, sign, answer } = this.state.problem;
     return (
       <div>
+{/* Problem List */}
         <div className="problem-list">
           {this.state.problems.map((p, i) => {
             return (
@@ -122,6 +131,7 @@ export default class MathTrainer extends Component {
             );
           })}
           <div>
+{/* Problem & Input */}
             {this.state.timeLeft > 0 || !this.state.isGameOver ? (
               <Problem
                 mode={this.Game.mode}
@@ -143,7 +153,7 @@ export default class MathTrainer extends Component {
             ) : null}
           </div>
         </div>
-
+{/* Timer / Message */}
         {!this.state.isGameOver ? (
           <h2>
             {!this.Game.hasTimer || this.state.timeLeft || this.state.timeTaken}
@@ -157,7 +167,7 @@ export default class MathTrainer extends Component {
             goHome={this.handleOptions}
           />
         )}
-
+{/* Video */}
         {this.Game.mode == "Zen" ? (
           <iframe
             className="video Zen"

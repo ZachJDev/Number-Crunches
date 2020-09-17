@@ -22,6 +22,9 @@ class GameMode {
     this.ticks = true;
     this.clockDirection = 1
     this.hasSkip = true;
+    this.challengeIncrease = 0;
+    this.max = Number(this.max)
+    this.min = Number(this.min)
   }
   compute(n1, n2, s) {
     
@@ -32,6 +35,8 @@ class GameMode {
   }
 
   getRandomInt() {
+    // if(this.max == this.min) return Number(this.min)
+    // This returns 0 if min and max are the same...
     return Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
   }
 
@@ -40,6 +45,7 @@ class GameMode {
     const sign = getRandom(this.signs);
     do {
       [n1, n2] = this.getNewNumbers();
+      console.log(n1, n2)
     } while (sign === "/" && n2 === 0); // Avoid 0 in the denominator
     return [n1, n2, sign];
   }
@@ -49,6 +55,9 @@ class GameMode {
   }
    isFinished() {
     return false;
+  }
+  increaseChallenge() {
+    this.max += this.challengeIncrease
   }
 
   static newGame(options) {
@@ -68,6 +77,7 @@ class GameMode {
 class Normal extends GameMode {
   constructor(params) {
     super(params);
+    this.challengeIncrease = 5;
   }
   static getDefaultRules() {
     return Object.assign(new BASE_RULES(), {

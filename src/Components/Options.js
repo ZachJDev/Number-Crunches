@@ -75,7 +75,7 @@ export default class Options extends Component {
 
 
             <h2>Choose Signs</h2>
-            <CheckboxGroup boxes={["*", "+", "/", "-"]} checked={this.state.signs} handleChange={this.handleCheckboxChange}/>
+            <CheckboxGroup boxes={[ "+", "-", "*","/"]} checked={this.state.signs} handleChange={this.handleCheckboxChange}/>
 
 
             {Rules[this.state.mode].problemCount ?
