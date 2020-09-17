@@ -50,21 +50,28 @@ export default class MathTrainer extends Component {
     let { num1, num2, sign, answer } = this.state.problem;
     this.setState({ input: val });
     if (this.state.problem.answer == val) {
-      this.setState({problems: [...this.state.problems, `${num1} ${sign} ${num2} = ${answer}`]}, () => {
-        if(!this.Game.isFinished(this.state.problems.length)) {
-          this.updateProblem();
+      this.setState(
+        {
+          problems: [
+            ...this.state.problems,
+            `${num1} ${sign} ${num2} = ${answer}`,
+          ],
+        },
+        () => {
+          if (!this.Game.isFinished(this.state.problems.length)) {
+            this.updateProblem();
+          } else {
+            this.endGame();
+          }
         }
-        else {
-          this.endGame()
-        }
-      });
+      );
     }
   };
   endGame = () => {
     clearInterval(this.state.timerTimeLeft);
     clearInterval(this.state.timerTimeTaken);
-    this.setState({ isGameOver: true, timeLeft: 0 });
-  }
+    this.setState(s=>({ isGameOver: true, timeLeft: 0, timeTaken: s.timeTaken + 1 }));
+  };
   tickTimer = () => {
     // This feels pretty hacky to me, will probably want to clean up later.
     if (this.state.timeLeft > 1) {
@@ -81,7 +88,7 @@ export default class MathTrainer extends Component {
 
   restart = () => {
     this.updateProblem();
-    this.setState({ isGameOver: false, problems: []})
+    this.setState({ isGameOver: false, problems: [] });
     if (this.Game.hasTimer) {
       this.setState({
         timeLeft: this.Game.startTime,
@@ -89,13 +96,17 @@ export default class MathTrainer extends Component {
         timerTimeLeft: setInterval(() => {
           this.tickTimer();
         }, 1000),
-        timerTimeTaken: setInterval(()=> {
+        timerTimeTaken: setInterval(() => {
           this.setState((s) => ({
             timeTaken: s.timeTaken + 1,
           }));
-        }, 1000)
+        }, 1000),
       });
     }
+  };
+
+  handleOptions = () => {
+    this.props.handleRestart();
   };
 
   render() {
@@ -132,13 +143,21 @@ export default class MathTrainer extends Component {
             ) : null}
           </div>
         </div>
-        
+
         {!this.state.isGameOver ? (
-          <h2>{!this.Game.hasTimer || this.state.timeLeft || this.state.timeTaken}</h2>
+          <h2>
+            {!this.Game.hasTimer || this.state.timeLeft || this.state.timeTaken}
+          </h2>
         ) : (
-          <GameOverMessage restart={this.restart} />
+          <GameOverMessage
+            solved={this.state.problems.length}
+            timeElapsed={this.state.timeTaken}
+            goal={3}
+            restart={this.restart}
+            goHome={this.handleOptions}
+          />
         )}
-      
+
         {this.Game.mode == "Zen" ? (
           <iframe
             className="video Zen"
@@ -149,6 +168,7 @@ export default class MathTrainer extends Component {
             title="video"
           />
         ) : null}
+        <button onClick={this.handleOptions}>Go to Options</button>
       </div>
     );
   }

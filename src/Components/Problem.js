@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import './Problem.css'
 export default class Problem extends Component {
 
   render() {

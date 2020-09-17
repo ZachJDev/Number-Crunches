@@ -143,8 +143,8 @@ class Blitz extends GameMode {
 
   // I don't like this being a method. I need to figure a way to keep the game logic separate from the game rules
   isFinished(probNum) {
-    // console.log(this.totalProblems)
-    if (probNum === this.totalProblems) {
+    console.log(this.totalProblems)
+    if (probNum == this.totalProblems) { // total problems is stored as a string.
       return true;
     }
     return false;
