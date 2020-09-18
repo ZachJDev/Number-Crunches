@@ -5,14 +5,14 @@ const getRandom = function (array) {
 
 class BASE_RULES {
   constructor() {
-    this.max = 3;
+    this.max = 10;
     this.min = 1;
     this.startTime = 10;
-    this.totalProblems =5;
+    this.totalProblems = 50;
     this.practice = false;
     this.hasNumProbs = false;
     this.hasStartClock = false;
-    this.allowedSigns = [ "+", "-", "×","/"];
+    this.allowedSigns = ["+", "-", "×", "/"];
   }
 }
 
@@ -22,14 +22,13 @@ class GameMode {
     this.hasTimer = !this.practice;
     this.bonus = 2;
     this.ticks = true;
-    this.clockDirection = 1
+    this.clockDirection = 1;
     this.hasSkip = true;
     this.challengeIncrease = 0;
-    this.max = Number(this.max)
-    this.min = Number(this.min)
+    this.max = Number(this.max);
+    this.min = Number(this.min);
   }
   compute(n1, n2, s) {
-    
     if (s === "×") return n1 * n2;
     if (s === "+") return n1 + n2;
     if (s === "-") return n1 - n2;
@@ -47,7 +46,7 @@ class GameMode {
     const sign = getRandom(this.signs);
     do {
       [n1, n2] = this.getNewNumbers();
-      console.log(n1, n2)
+      console.log(n1, n2);
     } while (sign === "/" && n2 === 0); // Avoid 0 in the denominator
     return [n1, n2, sign];
   }
@@ -55,11 +54,11 @@ class GameMode {
   getNewNumbers() {
     return [this.getRandomInt(), this.getRandomInt()];
   }
-   isFinished() {
+  isFinished() {
     return false;
   }
   increaseChallenge() {
-    this.max += this.challengeIncrease
+    this.max += this.challengeIncrease;
   }
 
   static newGame(options) {
@@ -80,14 +79,14 @@ class Normal extends GameMode {
   constructor(params) {
     super(params);
     this.challengeIncrease = 5;
-    
   }
   static getDefaultRules() {
     return Object.assign(new BASE_RULES(), {
       id: "Normal",
       hasPractice: true,
-      description: "Every correct answer adds more time to the clock, but be careful! The problems get harder the longer you  last.",
-      hasStartClock: true
+      description:
+        "Every correct answer adds more time to the clock, but be careful! The problems get harder the longer you  last.",
+      hasStartClock: true,
     });
   }
 }
@@ -96,7 +95,7 @@ class MultiplicationTables extends GameMode {
   constructor(params) {
     super(params);
     this.initGame();
-    this.clockDirection = 1
+    this.clockDirection = 1;
     this.hasSkip = false;
   }
   initGame() {
@@ -120,11 +119,12 @@ class MultiplicationTables extends GameMode {
     });
     return nums;
   }
-  isFinished(){
-    if( this.problem ===this.table.length){
+  isFinished() {
+    if (this.problem === this.table.length) {
       this.initGame();
-       return true;}
-    return false
+      return true;
+    }
+    return false;
   }
 
   static getDefaultRules() {
@@ -132,7 +132,8 @@ class MultiplicationTables extends GameMode {
       id: "Multiplication Tables",
       ticks: true,
       hasPractice: true,
-      description: "Like Normal mode, but let's you focus just on multiplication tables.",
+      description:
+        "Like Normal mode, but let's you focus just on multiplication tables.",
       allowedSigns: ["×"],
       hasStartClock: true,
     });
@@ -147,7 +148,7 @@ class Zen extends GameMode {
   static getDefaultRules() {
     return Object.assign(new BASE_RULES(), {
       id: "Zen",
-      description: "Chill out with some music and endless math problems."
+      description: "Chill out with some music and endless math problems.",
     });
   }
 }
@@ -162,19 +163,20 @@ class Blitz extends GameMode {
 
   // I don't like this being a method. I need to figure a way to keep the game logic separate from the game rules
   isFinished(probNum) {
-    console.log(this.totalProblems)
-    if (probNum == this.totalProblems) { // total problems is stored as a string.
+    console.log(this.totalProblems);
+    if (probNum == this.totalProblems) {
+      // total problems is stored as a string.
       return true;
     }
     return false;
   }
-   
+
   static getDefaultRules() {
     return Object.assign(new BASE_RULES(), {
       id: "Blitz",
       problemCount: true,
       description: "Solve a set number of problems as fast as you can!",
-      hasNumProbs: true
+      hasNumProbs: true,
     });
   }
 }
