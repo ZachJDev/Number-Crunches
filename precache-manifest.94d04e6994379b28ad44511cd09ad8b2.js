@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c9d475c18632bdae83b17c48f1cd8f8a",
+    "revision": "9194ecdc508edd4b0e6a71e6e38766bb",
     "url": "/Math-Trainer/index.html"
   },
   {
-    "revision": "65daf4dd76d9effc71a4",
+    "revision": "87417bd2b4899e51069c",
     "url": "/Math-Trainer/static/css/main.05aa9e24.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Math-Trainer/static/js/2.877db1d4.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "65daf4dd76d9effc71a4",
-    "url": "/Math-Trainer/static/js/main.1fedd845.chunk.js"
+    "revision": "87417bd2b4899e51069c",
+    "url": "/Math-Trainer/static/js/main.adc07a4a.chunk.js"
   },
   {
     "revision": "ce42f8cf1cef2df7e42a",

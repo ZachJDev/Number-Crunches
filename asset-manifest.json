@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Math-Trainer/static/css/main.05aa9e24.chunk.css",
-    "main.js": "/Math-Trainer/static/js/main.1fedd845.chunk.js",
-    "main.js.map": "/Math-Trainer/static/js/main.1fedd845.chunk.js.map",
+    "main.js": "/Math-Trainer/static/js/main.adc07a4a.chunk.js",
+    "main.js.map": "/Math-Trainer/static/js/main.adc07a4a.chunk.js.map",
     "runtime-main.js": "/Math-Trainer/static/js/runtime-main.c91fb3ff.js",
     "runtime-main.js.map": "/Math-Trainer/static/js/runtime-main.c91fb3ff.js.map",
     "static/js/2.877db1d4.chunk.js": "/Math-Trainer/static/js/2.877db1d4.chunk.js",
     "static/js/2.877db1d4.chunk.js.map": "/Math-Trainer/static/js/2.877db1d4.chunk.js.map",
     "index.html": "/Math-Trainer/index.html",
-    "precache-manifest.66fe8b246a1bfd027e320360ad6496fb.js": "/Math-Trainer/precache-manifest.66fe8b246a1bfd027e320360ad6496fb.js",
+    "precache-manifest.94d04e6994379b28ad44511cd09ad8b2.js": "/Math-Trainer/precache-manifest.94d04e6994379b28ad44511cd09ad8b2.js",
     "service-worker.js": "/Math-Trainer/service-worker.js",
     "static/css/main.05aa9e24.chunk.css.map": "/Math-Trainer/static/css/main.05aa9e24.chunk.css.map",
     "static/js/2.877db1d4.chunk.js.LICENSE.txt": "/Math-Trainer/static/js/2.877db1d4.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.c91fb3ff.js",
     "static/js/2.877db1d4.chunk.js",
     "static/css/main.05aa9e24.chunk.css",
-    "static/js/main.1fedd845.chunk.js"
+    "static/js/main.adc07a4a.chunk.js"
   ]
 }
