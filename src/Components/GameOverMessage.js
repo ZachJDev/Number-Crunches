@@ -19,12 +19,12 @@ class GameOverMessage extends Component {
       timeMessage = `${mins} minute${mins > 1 ? "s" : ""}${
         secs > 0 ? ` and ${secs} second${secs > 1 ? "s" : ""}` : ""
       }`;
-    } else timeMessage = `${timeElapsed} seconds!`;
+    } else timeMessage = `${timeElapsed} seconds`;
     return (
       <div>
         <h1>{`You solved ${solved} problems in ${timeMessage}!`}</h1>
         <h2>{message}</h2>
-        <button onClick={this.handleRestart}>Try again?</button>
+        <button className="button" onClick={this.handleRestart}>Try again?</button>
       </div>
     );
   }

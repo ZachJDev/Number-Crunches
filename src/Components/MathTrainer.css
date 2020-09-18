@@ -1,0 +1,23 @@
+.game-area {
+    height: 100%;
+    margin: 1rem auto;
+    /* border: 1px solid black; */
+    width: 50rem;
+    height: 50rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.options-button {
+    background-color: white;
+    width: 15rem;
+
+    margin: 1rem auto;
+    cursor: pointer;
+    /* border: none; */
+}
+
+
+

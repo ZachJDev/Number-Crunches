@@ -10,7 +10,9 @@ class BASE_RULES {
     this.startTime = 10;
     this.totalProblems =5;
     this.practice = false;
-    
+    this.hasNumProbs = false;
+    this.hasStartClock = false;
+    this.allowedSigns = [ "+", "-", "×","/"];
   }
 }
 
@@ -28,7 +30,7 @@ class GameMode {
   }
   compute(n1, n2, s) {
     
-    if (s === "*") return n1 * n2;
+    if (s === "×") return n1 * n2;
     if (s === "+") return n1 + n2;
     if (s === "-") return n1 - n2;
     if (s === "/") return n1 / n2;
@@ -78,11 +80,14 @@ class Normal extends GameMode {
   constructor(params) {
     super(params);
     this.challengeIncrease = 5;
+    
   }
   static getDefaultRules() {
     return Object.assign(new BASE_RULES(), {
       id: "Normal",
       hasPractice: true,
+      description: "Every correct answer adds more time to the clock, but be careful! The problems get harder the longer you  last.",
+      hasStartClock: true
     });
   }
 }
@@ -127,6 +132,9 @@ class MultiplicationTables extends GameMode {
       id: "Multiplication Tables",
       ticks: true,
       hasPractice: true,
+      description: "Like Normal mode, but let's you focus just on multiplication tables.",
+      allowedSigns: ["×"],
+      hasStartClock: true,
     });
   }
 }
@@ -139,6 +147,7 @@ class Zen extends GameMode {
   static getDefaultRules() {
     return Object.assign(new BASE_RULES(), {
       id: "Zen",
+      description: "Chill out with some music and endless math problems."
     });
   }
 }
@@ -164,9 +173,11 @@ class Blitz extends GameMode {
     return Object.assign(new BASE_RULES(), {
       id: "Blitz",
       problemCount: true,
+      description: "Solve a set number of problems as fast as you can!",
+      hasNumProbs: true
     });
   }
 }
 
 export default GameMode;
-export { Normal, MultiplicationTables, Zen, Blitz };
+export { Normal, MultiplicationTables, Blitz, Zen };

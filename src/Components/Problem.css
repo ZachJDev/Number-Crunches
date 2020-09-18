@@ -1,0 +1,36 @@
+.problem-wrap {
+    font-size: 30px;
+    /* display: flex; */
+    /* justify-content: space-around; */
+    width: 100%;
+    margin: 0 auto;
+}
+
+.problem {
+    font-size: 5rem;
+}
+.problem-wrap .input .answer{
+    font-size: 30px;
+    border: none;
+    border-bottom: 1px solid black;
+    width: 100%;
+    font-size: 5rem;
+    text-align: center;
+    
+    /* border: none; */
+}
+
+.problem-wrap .input .answer:focus {
+    outline: none;
+}
+
+.Zen .game-area .problem-list .problem {
+    font-size: 30px;
+    display: flex;
+    /* flex-direction: column-reverse; */
+    /* text-align: right; */
+    width: 15rem;
+    margin: 0 auto;
+    /* width: 25%; */
+    /* align-items: flex-start; */
+}

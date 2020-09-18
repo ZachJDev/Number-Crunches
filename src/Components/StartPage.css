@@ -1,3 +1,21 @@
-* {
-    font-size: 30px;
+.button {
+    font-family: 'Overpass', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-size: 1.4rem;
+  background-color: white;
+  border: 1px solid black;
+  /* border-bottom: 3px solid black;
+  border-right: 3px solid black; */
+  
+  box-shadow: 3px 1px black;
+
+  margin-bottom: 4px;
+
+}
+
+.button:hover {
+    box-shadow: 2px 0px black;
+    cursor: pointer;
 }

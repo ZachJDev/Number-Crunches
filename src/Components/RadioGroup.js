@@ -9,8 +9,8 @@ export default class RadioGroup extends Component {
     render() {
         return (
             this.props.radios.map(r => {
-                return( <div>
-                    <input onChange={this.handleChange} type="radio" name={this.props.name} value={r.id} id={r.id} checked={r.id === this.props.checked}></input>
+                return( <div className={this.props.radioClass}>
+                    <input  onChange={this.handleChange} type="radio" name={this.props.name} value={r.id} id={r.id} checked={r.id === this.props.checked} disabled={this.props.disabled}></input>
                     <label for={r.id}>{r.id}</label>
                 </div>)
             })

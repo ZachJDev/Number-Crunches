@@ -23,9 +23,10 @@ export default class Input extends Component {
               type="text"
               onChange={this.handleInput}
               value={this.props.input}
+              autoFocus
             ></input>
             {this.props.hasSkip ? 
-            <button onClick={this.handleUpdateProblem}>{this.props.isGameOver ? 'restart': 'skip'}</button>
+            <button className="skip-button button" onClick={this.handleUpdateProblem}>{this.props.isGameOver ? 'restart': 'skip'}</button>
             : null
             }
           </div>

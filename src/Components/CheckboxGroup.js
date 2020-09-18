@@ -11,7 +11,7 @@ export default class CheckboxGroup extends Component {
             <div>
             {this.props.boxes.map(b => {
                 return <div>
-                    <input type="checkbox" id={b} name={b} value={b} onChange={this.handleChange} checked={this.props.checked.includes(b)}></input>
+                    <input type="checkbox" id={b} name={b} value={b} onChange={this.handleChange} checked={this.props.checked.includes(b)} disabled={!this.props.enabledList.includes(b)}></input>
                     <label for={b}>{b}</label>
                 </div>
             })}

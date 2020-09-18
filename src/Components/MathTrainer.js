@@ -4,6 +4,7 @@ import Input from "./Input";
 import GameMode from "./Modes";
 import GameOverMessage from "./GameOverMessage";
 
+import "./MathTrainer.css";
 import "./Zen.css";
 
 export default class MathTrainer extends Component {
@@ -50,7 +51,6 @@ export default class MathTrainer extends Component {
     let { num1, num2, sign, answer } = this.state.problem;
     this.setState({ input: val });
     if (this.state.problem.answer == val) {
-    
       this.setState(
         {
           problems: [
@@ -60,7 +60,8 @@ export default class MathTrainer extends Component {
         },
         () => {
           if (!this.Game.isFinished(this.state.problems.length)) {
-            if (this.state.problems.length  % 5 === 0) { // I may want to abstract the threshold into the Mode classes.
+            if (this.state.problems.length % 5 === 0) {
+              // I may want to abstract the threshold into the Mode classes.
               this.Game.increaseChallenge();
             }
             this.updateProblem();
@@ -90,7 +91,7 @@ export default class MathTrainer extends Component {
       this.endGame();
     }
   };
-  
+
   restart = () => {
     this.updateProblem();
     this.setState({ isGameOver: false, problems: [] });
@@ -109,65 +110,81 @@ export default class MathTrainer extends Component {
       });
     }
   };
-  
+
   handleOptions = () => {
     this.props.handleRestart();
   };
-  
+
   componentDidMount() {
     this.restart();
   }
   render() {
+    let timerMessage;
+    if(this.Game.mode !== 'Zen') {
+      timerMessage = !this.state.isGameOver ? (
+        <h2>
+          {!this.Game.hasTimer ||
+            this.state.timeLeft ||
+            this.state.timeTaken}
+        </h2>
+      ) : (
+        <GameOverMessage
+          solved={this.state.problems.length}
+          timeElapsed={this.state.timeTaken}
+          goal={3}
+          restart={this.restart}
+          goHome={this.handleOptions}
+        />
+      )
+    } else timerMessage = null
+    
     let { num1, num2, sign, answer } = this.state.problem;
     return (
-      <div>
-{/* Problem List */}
-        <div className="problem-list">
-          {this.state.problems.map((p, i) => {
-            return (
-              <span className={`${this.Game.mode} problem`}>
-                {i + 1}: {p}
-              </span>
-            );
-          })}
-          <div>
-{/* Problem & Input */}
-            {this.state.timeLeft > 0 || !this.state.isGameOver ? (
-              <Problem
-                mode={this.Game.mode}
-                num1={num1}
-                num2={num2}
-                answer={answer}
-                sign={sign}
-                probNum={this.state.problems.length + 1}
-              >
-                <Input
-                  handleInput={this.handleInput}
-                  updateProblem={this.updateProblem}
-                  input={this.state.input}
-                  restart={this.restart}
-                  hasSkip={this.Game.hasSkip}
-                  isGameOver={this.state.timeLeft === 0}
-                />
-              </Problem>
-            ) : null}
-          </div>
+      <div className={`${this.Game.mode}`}>
+        <div className="game-area">
+          {/* Problem List */}
+          {this.Game.mode === "Zen" ? (
+            <div className="problem-list">
+              {this.state.problems.map((p, i) => {
+                return (
+                  <span className={`${this.Game.mode} problem`}>
+                    {p}
+                  </span>
+                );
+              })}
+            </div>
+          ) : null}
+          {/* Timer / Message */}
+          {timerMessage}
+          {/* Problem & Input */}
+          {this.state.timeLeft > 0 || !this.state.isGameOver ? (
+            <Problem
+              mode={this.Game.mode}
+              num1={num1}
+              num2={num2}
+              answer={answer}
+              sign={sign}
+              probNum={this.state.problems.length + 1}
+            >
+              <Input
+                handleInput={this.handleInput}
+                updateProblem={this.updateProblem}
+                input={this.state.input}
+                restart={this.restart}
+                hasSkip={this.Game.hasSkip}
+                isGameOver={this.state.timeLeft === 0}
+              />
+            </Problem>
+          ) : null}
+
+          <button
+            className="button options-button"
+            onClick={this.handleOptions}
+          >
+            Start new Game
+          </button>
         </div>
-{/* Timer / Message */}
-        {!this.state.isGameOver ? (
-          <h2>
-            {!this.Game.hasTimer || this.state.timeLeft || this.state.timeTaken}
-          </h2>
-        ) : (
-          <GameOverMessage
-            solved={this.state.problems.length}
-            timeElapsed={this.state.timeTaken}
-            goal={3}
-            restart={this.restart}
-            goHome={this.handleOptions}
-          />
-        )}
-{/* Video */}
+        {/* Video */}
         {this.Game.mode == "Zen" ? (
           <iframe
             className="video Zen"
@@ -178,7 +195,6 @@ export default class MathTrainer extends Component {
             title="video"
           />
         ) : null}
-        <button onClick={this.handleOptions}>Go to Options</button>
       </div>
     );
   }
