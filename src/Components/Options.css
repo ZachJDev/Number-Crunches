@@ -75,3 +75,19 @@
 .disabled {
     color: gray;
 }
+
+.warning {
+    position: absolute;
+    margin-top: .2rem;
+    margin-left: 10px;
+    color: rgb(255, 64, 64);
+    font-size: .8rem;
+}
+
+.button.disabled {
+    box-shadow: 3px 1px gray;
+}
+
+.button.disabled:hover {
+    box-shadow: 3px 1px gray;   
+}

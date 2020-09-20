@@ -11,7 +11,6 @@ export default class MathTrainer extends Component {
   constructor(props) {
     super(props);
     this.Game = GameMode.newGame(this.props.options);
-    console.log(this.Game);
     this.state = {
       problem: { num1: 0, num2: 0, sign: "" },
       input: "",
@@ -181,7 +180,7 @@ export default class MathTrainer extends Component {
             className="button options-button"
             onClick={this.handleOptions}
           >
-            Start new Game
+            Select a new mode
           </button>
         </div>
         {/* Video */}

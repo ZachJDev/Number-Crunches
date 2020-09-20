@@ -9,10 +9,10 @@ export default class CheckboxGroup extends Component {
     render() {
         return (
             <div>
-            {this.props.boxes.map(b => {
-                return <div>
-                    <input type="checkbox" id={b} name={b} value={b} onChange={this.handleChange} checked={this.props.checked.includes(b)} disabled={!this.props.enabledList.includes(b)}></input>
-                    <label for={b}>{b}</label>
+            {this.props.boxes.map(boxVal => {
+                return <div key={boxVal}>
+                    <input type="checkbox" id={boxVal} name={boxVal} value={boxVal} onChange={this.handleChange} checked={this.props.checked.includes(boxVal)} disabled={!this.props.enabledList.includes(boxVal)}></input>
+                    <label htmlFor={boxVal}>{boxVal}</label>
                 </div>
             })}
             </div>

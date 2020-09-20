@@ -46,7 +46,6 @@ class GameMode {
     const sign = getRandom(this.signs);
     do {
       [n1, n2] = this.getNewNumbers();
-      console.log(n1, n2);
     } while (sign === "/" && n2 === 0); // Avoid 0 in the denominator
     return [n1, n2, sign];
   }
@@ -163,7 +162,6 @@ class Blitz extends GameMode {
 
   // I don't like this being a method. I need to figure a way to keep the game logic separate from the game rules
   isFinished(probNum) {
-    console.log(this.totalProblems);
     if (probNum == this.totalProblems) {
       // total problems is stored as a string.
       return true;
