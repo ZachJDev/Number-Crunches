@@ -202,7 +202,7 @@ export default class MathTrainer extends Component {
         </div>
       }
         {/* Video */}
-        {this.Game.mode == "Zen" ? (
+        {this.Game.mode === "Zen" ? (
           <iframe
             className="video Zen"
             src="https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1"

@@ -4,7 +4,7 @@ import './Problem.css'
 export default class Problem extends Component {
 
   render() {
-    let {num1, num2, sign, probNum, mode} = this.props
+    let {num1, num2, sign, mode} = this.props
     return (
       <div className={` ${mode} problem-wrap`}>
       <div className={` problem`}>
