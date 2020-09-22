@@ -31,7 +31,6 @@ export default class Options extends Component {
   }
   };
   handleChange = (event, value) => {
-    let canStart = Number(this.state.min) <= Number(this.state.max)
     if (event.target.name === "practice") {
       let practice = this.state.practice;
       this.setState({ [event.target.name]: !practice });

@@ -18,6 +18,7 @@ export default class MathTrainer extends Component {
         this.Game.hasTimer || !this.Game.practice || this.Game.startTime,
       isGameOver: true,
       problems: [],
+      preGameTime: 3,
     };
   }
 
@@ -115,8 +116,19 @@ export default class MathTrainer extends Component {
   };
 
   componentDidMount() {
-    this.restart();
+    // Goes right into the Game if it's Zen, else starts the pregame timer
+    if(this.Game.mode === "Zen") {
+      this.restart();
+    } else {
+    this.setState({timerPreGame: setInterval(() => {
+      this.setState(s => ({preGameTime : s.preGameTime - 1}))
+      if(this.state.preGameTime < 1) {
+        this.restart();
+        clearInterval(this.state.timerPreGame)
+      }
+    }, 1000)})
   }
+}
   render() {
     let timerMessage;
     if(this.Game.mode !== 'Zen') {
@@ -140,6 +152,11 @@ export default class MathTrainer extends Component {
     let { num1, num2, sign, answer } = this.state.problem;
     return (
       <div className={`${this.Game.mode}`}>
+      {/* PreGame timer / game area */}
+      {this.Game.mode !== 'Zen' && 
+      this.state.preGameTime > 0 ? 
+      <h2 className="pre-timer">{this.state.preGameTime}</h2> 
+      : 
         <div className="game-area">
           {/* Problem List */}
           {this.Game.mode === "Zen" ? (
@@ -183,6 +200,7 @@ export default class MathTrainer extends Component {
             Select a new mode
           </button>
         </div>
+      }
         {/* Video */}
         {this.Game.mode == "Zen" ? (
           <iframe

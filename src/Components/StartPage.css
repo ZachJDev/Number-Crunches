@@ -19,3 +19,13 @@
     box-shadow: 2px 0px rgb(21, 187, 253);
     cursor: pointer;
 }
+
+.title {
+  text-align: center;
+  border-bottom: 1px solid black;
+  padding-bottom: .3rem
+}
+
+.title.hidden {
+  display: none;
+}

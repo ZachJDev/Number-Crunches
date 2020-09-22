@@ -16,12 +16,14 @@ export default class BasicTrainer extends Component {
     this.setState({ isGameOver: false, options });
   };
   handleRestart =() => {
-    this.setState({isGameOver: true})
+    this.setState({isGameOver: true, options : {}})
   }
   render() {
+    const titleClass = (this.state.options.mode === 'Zen') ? 'title hidden' : 'title';
     return (
 
        <div>
+       <h1 className={titleClass}>Online Mental Math Trainer</h1>
         {this.state.isGameOver ? (
           <Options handleOptions={this.handleOptions} />
         ) : (
