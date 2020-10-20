@@ -4,13 +4,15 @@ import Input from "./Input";
 import GameMode from "./Modes";
 import GameOverMessage from "./GameOverMessage";
 
+
 import "./MathTrainer.css";
 import "./Zen.css";
-
-export default class MathTrainer extends Component {
+ class MathTrainer extends Component {
   constructor(props) {
     super(props);
-    this.Game = GameMode.newGame(this.props.options);
+    // This little hack keeps the trainer working correctly if the page is refreshed.
+    let options = this.props.options.length > 0 ? this.props.options : this.props.history.location.state.options
+    this.Game = GameMode.newGame(options);
     this.state = {
       problem: { num1: 0, num2: 0, sign: "" },
       input: "",
@@ -20,8 +22,9 @@ export default class MathTrainer extends Component {
       problems: [],
       preGameTime: 3,
     };
+    // console.log( this.props.location.pathname, `/${this.props.options.mode}`)
   }
-
+  
   updateProblem = (wasSkipped) => {
     let [num1, num2, sign] = this.Game.getNewProblem();
     let answer;
@@ -46,7 +49,7 @@ export default class MathTrainer extends Component {
       }));
     }
   };
-
+  
   handleInput = (val) => {
     let { num1, num2, sign, answer } = this.state.problem;
     this.setState({ input: val });
@@ -69,66 +72,71 @@ export default class MathTrainer extends Component {
             this.endGame();
           }
         }
-      );
-    }
-  };
-  endGame = () => {
-    clearInterval(this.state.timerTimeLeft);
-    clearInterval(this.state.timerTimeTaken);
-    this.setState((s) => ({
-      isGameOver: true,
-      timeLeft: 0,
-      timeTaken: s.timeTaken + 1, // The timeLeft timer doesn't actually count all the way to 0, so this little addition gets the last second.
-    }));
-  };
-  tickTimer = () => {
-    // This feels pretty hacky to me, will probably want to clean up later.
-    if (this.state.timeLeft > 1) {
+        );
+      }
+    };
+    endGame = () => {
+      clearInterval(this.state.timerTimeLeft);
+      clearInterval(this.state.timerTimeTaken);
       this.setState((s) => ({
-        timeLeft: s.timeLeft - 1,
+        isGameOver: true,
+        timeLeft: 0,
+        timeTaken: s.timeTaken + 1, // The timeLeft timer doesn't actually count all the way to 0, so this little addition gets the last second.
       }));
-    } else if (this.state.timeLeft === 1) {
-      this.endGame();
-    }
+    };
+    tickTimer = () => {
+      // This feels pretty hacky to me, will probably want to clean up later.
+      if (this.state.timeLeft > 1) {
+        this.setState((s) => ({
+          timeLeft: s.timeLeft - 1,
+        }));
+      } else if (this.state.timeLeft === 1) {
+        this.endGame();
+      }
+    };
+    
+    restart = () => {
+      this.updateProblem();
+      this.setState({ isGameOver: false, problems: [] });
+      if (this.Game.hasTimer) {
+        this.setState({
+          timeLeft: this.Game.startTime,
+          timeTaken: 0,
+          timerTimeLeft: setInterval(() => {
+            this.tickTimer();
+          }, 1000),
+          timerTimeTaken: setInterval(() => {
+            this.setState((s) => ({
+              timeTaken: s.timeTaken + 1,
+            }));
+          }, 1000),
+        });
+      }
   };
-
-  restart = () => {
-    this.updateProblem();
-    this.setState({ isGameOver: false, problems: [] });
-    if (this.Game.hasTimer) {
-      this.setState({
-        timeLeft: this.Game.startTime,
-        timeTaken: 0,
-        timerTimeLeft: setInterval(() => {
-          this.tickTimer();
-        }, 1000),
-        timerTimeTaken: setInterval(() => {
-          this.setState((s) => ({
-            timeTaken: s.timeTaken + 1,
-          }));
-        }, 1000),
-      });
-    }
-  };
-
+  
   handleOptions = () => {
     this.props.handleRestart();
+    this.props.history.push("/Math-Trainer/options", {isGameOver: true})
   };
-
+  
   componentDidMount() {
     // Goes right into the Game if it's Zen, else starts the pregame timer
     if(this.Game.mode === "Zen") {
       this.restart();
     } else {
-    this.setState({timerPreGame: setInterval(() => {
-      this.setState(s => ({preGameTime : s.preGameTime - 1}))
-      if(this.state.preGameTime < 1) {
-        this.restart();
-        clearInterval(this.state.timerPreGame)
-      }
-    }, 1000)})
+      this.setState({timerPreGame: setInterval(() => {
+        this.setState(s => ({preGameTime : s.preGameTime - 1}))
+        if(this.state.preGameTime < 1) {
+          this.restart();
+          clearInterval(this.state.timerPreGame)
+        }
+      }, 1000)})
+    }
   }
-}
+  componentWillUnmount() {
+    clearInterval(this.state.timerTimeLeft);
+    clearInterval(this.state.timerTimeTaken);
+  }
   render() {
     let timerMessage;
     if(this.Game.mode !== 'Zen') {
@@ -151,6 +159,7 @@ export default class MathTrainer extends Component {
     
     let { num1, num2, sign, answer } = this.state.problem;
     return (
+      // this.props.location.pathname !== `/Math-Trainer/${this.props.options.mode}` || !this.Game ? <Redirect to="/Math-Trainer/options"/> :
       <div className={`${this.Game.mode}`}>
       {/* PreGame timer / game area */}
       {this.Game.mode !== 'Zen' && 
@@ -206,9 +215,9 @@ export default class MathTrainer extends Component {
           <iframe
             className="video Zen"
             src="https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1"
-            frameborder="0"
+            frameBorder="0"
             allow="autoplay; encrypted-media"
-            allowfullscreen
+            allowFullScreen
             title="video"
           />
         ) : null}
@@ -216,3 +225,6 @@ export default class MathTrainer extends Component {
     );
   }
 }
+
+
+export default MathTrainer

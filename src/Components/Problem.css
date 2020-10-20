@@ -31,6 +31,7 @@
     /* text-align: right; */
     width: 15rem;
     margin: 0 auto;
+    z-index: -1;
     /* width: 25%; */
     /* align-items: flex-start; */
 }

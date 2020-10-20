@@ -20,10 +20,18 @@
     cursor: pointer;
 }
 
+.title-div {
+  background-color: white;
+  padding-top: 1rem;
+  z-index: 1;
+}
+
 .title {
   text-align: center;
   border-bottom: 1px solid black;
-  padding-bottom: .3rem
+  padding-bottom: .3rem;
+  margin-top: 0;
+  
 }
 
 .title.hidden {

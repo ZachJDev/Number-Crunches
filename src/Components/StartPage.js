@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Options from "./Options";
 import MathTrainer from "./MathTrainer";
+import {Switch, Route, Redirect} from 'react-router-dom'
 
 import './StartPage.css'
 
@@ -13,23 +14,37 @@ export default class BasicTrainer extends Component {
     };
   }
   handleOptions = (options) => {
-    this.setState({ isGameOver: false, options });
+    this.setState({ isGameOver: false, options }, () => {
+      this.props.history.push(`/Math-Trainer/${options.mode}`, this.state)
+    })
+    
   };
   handleRestart =() => {
     this.setState({isGameOver: true, options : {}})
   }
   render() {
-    const titleClass = (this.state.options.mode === 'Zen') ? 'title hidden' : 'title';
+    const titleClass = 'title';
+    // I don't love this, but  dealing with route params (:gameMode) was a HUGE headache.abs
+    // In the future, I'd like to build this from the GameMode object.
+    const modePaths = ["/Math-Trainer/Normal","/Math-Trainer/Zen", "/Math-Trainer/Blitz", "/Math-Trainer/Multiplication Tables"]
     return (
+<React.Fragment>
+       <div className='title-div'><h1 className={titleClass}>Online Mental Math Trainer</h1></div>
+      <Switch>
+        <Route path="/Math-Trainer/options" exact render={(routeProps) =><Options {...routeProps} handleOptions={this.handleOptions}/>}/>
+        <Route path={modePaths} exact render={routeProps => <MathTrainer {...routeProps} options={this.state.options} handleRestart={this.handleRestart} />}/>
 
-       <div>
-       <h1 className={titleClass}>Online Mental Math Trainer</h1>
+      <Route to="" render={() => <Redirect to="/Math-Trainer/options"/>}/>
+      </Switch>
+      
+       {/* <div>
         {this.state.isGameOver ? (
           <Options handleOptions={this.handleOptions} />
         ) : (
          <MathTrainer options={this.state.options} handleRestart={this.handleRestart} />
         )}
-      </div> 
+      </div>  */}
+</React.Fragment>
     );
   }
 }

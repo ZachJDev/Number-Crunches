@@ -70,6 +70,7 @@ class GameMode {
         return new Zen(options);
       case "Multiplication Tables":
         return new MultiplicationTables(options);
+      default: return new Normal(options)
     }
   }
 }
@@ -162,8 +163,10 @@ class Blitz extends GameMode {
 
   // I don't like this being a method. I need to figure a way to keep the game logic separate from the game rules
   isFinished(probNum) {
+    // eslint-disable-next-line eqeqeq
     if (probNum == this.totalProblems) {
       // total problems is stored as a string.
+      // Thank you past me.
       return true;
     }
     return false;
