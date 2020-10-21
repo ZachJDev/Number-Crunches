@@ -55,6 +55,7 @@ class MathTrainer extends Component {
     let { num1, num2, sign, answer } = this.state.problem;
     this.setState({ input: val });
     // It's been like a month since I wrote this line, and now I'm wishing I'd learned TypeScript...
+    // eslint-disable-next-line
     if (this.state.problem.answer == val) { 
       this.setState(
         {
