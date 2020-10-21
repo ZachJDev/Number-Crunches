@@ -10,7 +10,7 @@ export default class Input extends Component {
     }
     handleUpdateProblem = () => {
         if(this.props.isGameOver) {
-            this.props.restart();
+            this.props.handleRestart();
         } else
         this.props.updateProblem(true);
     }

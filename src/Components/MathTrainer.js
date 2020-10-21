@@ -1,19 +1,21 @@
 import React, { Component } from "react";
-import Problem from "./Problem";
-import Input from "./Input";
+import GameArea from "./GameArea";
 import GameMode from "./Modes";
-import GameOverMessage from "./GameOverMessage";
-
+import Video from "./Video";
 
 import "./MathTrainer.css";
 import "./Zen.css";
- class MathTrainer extends Component {
+class MathTrainer extends Component {
   constructor(props) {
     super(props);
     // This little hack keeps the trainer working correctly if the page is refreshed.
-    let options = this.props.options.length > 0 ? this.props.options : this.props.history.location.state.options
+    const options =
+      this.props.options.length > 0
+        ? this.props.options
+        : this.props.history.location.state.options;
     this.Game = GameMode.newGame(options);
     this.state = {
+      practice: this.Game.practice,
       problem: { num1: 0, num2: 0, sign: "" },
       input: "",
       timeLeft:
@@ -22,9 +24,8 @@ import "./Zen.css";
       problems: [],
       preGameTime: 3,
     };
-    // console.log( this.props.location.pathname, `/${this.props.options.mode}`)
   }
-  
+
   updateProblem = (wasSkipped) => {
     let [num1, num2, sign] = this.Game.getNewProblem();
     let answer;
@@ -49,11 +50,12 @@ import "./Zen.css";
       }));
     }
   };
-  
+
   handleInput = (val) => {
     let { num1, num2, sign, answer } = this.state.problem;
     this.setState({ input: val });
-    if (this.state.problem.answer == val) {
+    // It's been like a month since I wrote this line, and now I'm wishing I'd learned TypeScript...
+    if (this.state.problem.answer == val) { 
       this.setState(
         {
           problems: [
@@ -72,65 +74,67 @@ import "./Zen.css";
             this.endGame();
           }
         }
-        );
-      }
-    };
-    endGame = () => {
-      clearInterval(this.state.timerTimeLeft);
-      clearInterval(this.state.timerTimeTaken);
+      );
+    }
+  };
+  endGame = () => {
+    clearInterval(this.state.timerTimeLeft);
+    clearInterval(this.state.timerTimeTaken);
+    this.setState((s) => ({
+      isGameOver: true,
+      timeLeft: 0,
+      timeTaken: s.timeTaken + 1, // The timeLeft timer doesn't actually count all the way to 0, so this little addition gets the last second.
+    }));
+  };
+  tickTimer = () => {
+    // This feels pretty hacky to me, will probably want to clean up later.
+    if (this.state.timeLeft > 1) {
       this.setState((s) => ({
-        isGameOver: true,
-        timeLeft: 0,
-        timeTaken: s.timeTaken + 1, // The timeLeft timer doesn't actually count all the way to 0, so this little addition gets the last second.
+        timeLeft: s.timeLeft - 1,
       }));
-    };
-    tickTimer = () => {
-      // This feels pretty hacky to me, will probably want to clean up later.
-      if (this.state.timeLeft > 1) {
-        this.setState((s) => ({
-          timeLeft: s.timeLeft - 1,
-        }));
-      } else if (this.state.timeLeft === 1) {
-        this.endGame();
-      }
-    };
-    
-    restart = () => {
-      this.updateProblem();
-      this.setState({ isGameOver: false, problems: [] });
-      if (this.Game.hasTimer) {
-        this.setState({
-          timeLeft: this.Game.startTime,
-          timeTaken: 0,
-          timerTimeLeft: setInterval(() => {
-            this.tickTimer();
-          }, 1000),
-          timerTimeTaken: setInterval(() => {
-            this.setState((s) => ({
-              timeTaken: s.timeTaken + 1,
-            }));
-          }, 1000),
-        });
-      }
+    } else if (this.state.timeLeft === 1) {
+      this.endGame();
+    }
   };
-  
-  handleOptions = () => {
+
+  restart = () => {
+    this.updateProblem();
+    this.setState({ isGameOver: false, problems: [] });
+    if (this.Game.hasTimer) {
+      this.setState({
+        timeLeft: this.Game.startTime,
+        timeTaken: 0,
+        timerTimeLeft: setInterval(() => {
+          this.tickTimer();
+        }, 1000),
+        timerTimeTaken: setInterval(() => {
+          this.setState((s) => ({
+            timeTaken: s.timeTaken + 1,
+          }));
+        }, 1000),
+      });
+    }
+  };
+
+  goToOptions = () => {
     this.props.handleRestart();
-    this.props.history.push("/Math-Trainer/options", {isGameOver: true})
+    this.props.history.push("/Math-Trainer/options", { isGameOver: true });
   };
-  
+
   componentDidMount() {
     // Goes right into the Game if it's Zen, else starts the pregame timer
-    if(this.Game.mode === "Zen") {
+    if (this.Game.mode === "Zen") {
       this.restart();
     } else {
-      this.setState({timerPreGame: setInterval(() => {
-        this.setState(s => ({preGameTime : s.preGameTime - 1}))
-        if(this.state.preGameTime < 1) {
-          this.restart();
-          clearInterval(this.state.timerPreGame)
-        }
-      }, 1000)})
+      this.setState({
+        timerPreGame: setInterval(() => {
+          this.setState((s) => ({ preGameTime: s.preGameTime - 1 }));
+          if (this.state.preGameTime < 1) {
+            this.restart();
+            clearInterval(this.state.timerPreGame);
+          }
+        }, 1000),
+      });
     }
   }
   componentWillUnmount() {
@@ -138,87 +142,27 @@ import "./Zen.css";
     clearInterval(this.state.timerTimeTaken);
   }
   render() {
-    let timerMessage;
-    if(this.Game.mode !== 'Zen') {
-      timerMessage = !this.state.isGameOver ? (
-        <h2>
-          {!this.Game.hasTimer ||
-            this.state.timeLeft ||
-            this.state.timeTaken}
-        </h2>
-      ) : (
-        <GameOverMessage
-          solved={this.state.problems.length}
-          timeElapsed={this.state.timeTaken}
-          goal={3}
-          restart={this.restart}
-          goHome={this.handleOptions}
-        />
-      )
-    } else timerMessage = null
-    
-    let { num1, num2, sign, answer } = this.state.problem;
     return (
-      // this.props.location.pathname !== `/Math-Trainer/${this.props.options.mode}` || !this.Game ? <Redirect to="/Math-Trainer/options"/> :
       <div className={`${this.Game.mode}`}>
-      {/* PreGame timer / game area */}
-      {this.Game.mode !== 'Zen' && 
-      this.state.preGameTime > 0 ? 
-      <h2 className="pre-timer">{this.state.preGameTime}</h2> 
-      : 
-        <div className="game-area">
-          {/* Problem List */}
-          {this.Game.mode === "Zen" ? (
-            <div className="problem-list">
-              {this.state.problems.map((p, i) => {
-                return (
-                  <span className={`${this.Game.mode} problem`}>
-                    {p}
-                  </span>
-                );
-              })}
-            </div>
-          ) : null}
-          {/* Timer / Message */}
-          {timerMessage}
-          {/* Problem & Input */}
-          {this.state.timeLeft > 0 || !this.state.isGameOver ? (
-            <Problem
-              mode={this.Game.mode}
-              num1={num1}
-              num2={num2}
-              answer={answer}
-              sign={sign}
-              probNum={this.state.problems.length + 1}
-            >
-              <Input
-                handleInput={this.handleInput}
-                updateProblem={this.updateProblem}
-                input={this.state.input}
-                restart={this.restart}
-                hasSkip={this.Game.hasSkip}
-                isGameOver={this.state.timeLeft === 0}
-              />
-            </Problem>
-          ) : null}
-
-          <button
-            className="button options-button"
-            onClick={this.handleOptions}
-          >
-            Select a new mode
-          </button>
-        </div>
-      }
+        {/* PreGame timer / game area */}
+        {this.Game.mode !== "Zen" && this.state.preGameTime > 0 ? (
+          <h2 className="pre-timer">{this.state.preGameTime}</h2>
+        ) : (
+          <GameArea
+            {...this.state}
+            hasSkip={this.Game.hasSkip}
+            mode={this.Game.mode}
+            updateProblem={this.updateProblem}
+            handleInput={this.handleInput}
+            handleOptions={this.goToOptions}
+            restart={this.restart}
+          />
+        )}
         {/* Video */}
         {this.Game.mode === "Zen" ? (
-          <iframe
-            className="video Zen"
-            src="https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1"
-            frameBorder="0"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-            title="video"
+          <Video
+            url={"https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1"}
+            mode={this.Game.mode}
           />
         ) : null}
       </div>
@@ -226,5 +170,4 @@ import "./Zen.css";
   }
 }
 
-
-export default MathTrainer
+export default MathTrainer;
