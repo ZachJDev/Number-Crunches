@@ -24,26 +24,18 @@ export default class BasicTrainer extends Component {
   }
   render() {
     const titleClass = 'title';
-    // I don't love this, but  dealing with route params (:gameMode) was a HUGE headache.abs
+    // I don't love this, but  dealing with route params (:gameMode) was a HUGE headache
     // In the future, I'd like to build this from the GameMode object.
     const modePaths = ["/Math-Trainer/Normal","/Math-Trainer/Zen", "/Math-Trainer/Blitz", "/Math-Trainer/Multiplication Tables"]
     return (
 <React.Fragment>
-       <div className='title-div'><h1 className={titleClass}>Online Mental Math Trainer</h1></div>
+       <div className='title-div'><h1 className={titleClass}>Number Cruncher: A Mental Math Workout </h1></div>
       <Switch>
         <Route path="/Math-Trainer/options" exact render={(routeProps) =><Options {...routeProps} handleOptions={this.handleOptions}/>}/>
         <Route path={modePaths} exact render={routeProps => <MathTrainer {...routeProps} options={this.state.options} handleRestart={this.handleRestart} />}/>
 
       <Route to="" render={() => <Redirect to="/Math-Trainer/options"/>}/>
       </Switch>
-      
-       {/* <div>
-        {this.state.isGameOver ? (
-          <Options handleOptions={this.handleOptions} />
-        ) : (
-         <MathTrainer options={this.state.options} handleRestart={this.handleRestart} />
-        )}
-      </div>  */}
 </React.Fragment>
     );
   }
