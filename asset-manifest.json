@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/Math-Trainer/static/css/main.7c05434f.chunk.css",
-    "main.js": "/Math-Trainer/static/js/main.6a4119b4.chunk.js",
-    "main.js.map": "/Math-Trainer/static/js/main.6a4119b4.chunk.js.map",
+    "main.css": "/Math-Trainer/static/css/main.06301782.chunk.css",
+    "main.js": "/Math-Trainer/static/js/main.a8308cc3.chunk.js",
+    "main.js.map": "/Math-Trainer/static/js/main.a8308cc3.chunk.js.map",
     "runtime-main.js": "/Math-Trainer/static/js/runtime-main.c91fb3ff.js",
     "runtime-main.js.map": "/Math-Trainer/static/js/runtime-main.c91fb3ff.js.map",
-    "static/js/2.877db1d4.chunk.js": "/Math-Trainer/static/js/2.877db1d4.chunk.js",
-    "static/js/2.877db1d4.chunk.js.map": "/Math-Trainer/static/js/2.877db1d4.chunk.js.map",
+    "static/js/2.7aad7661.chunk.js": "/Math-Trainer/static/js/2.7aad7661.chunk.js",
+    "static/js/2.7aad7661.chunk.js.map": "/Math-Trainer/static/js/2.7aad7661.chunk.js.map",
     "index.html": "/Math-Trainer/index.html",
-    "precache-manifest.de3b21d26e46262d9ef429bcd305e34e.js": "/Math-Trainer/precache-manifest.de3b21d26e46262d9ef429bcd305e34e.js",
+    "precache-manifest.7fdaa727ed8ce154f0e17fb1a82b651c.js": "/Math-Trainer/precache-manifest.7fdaa727ed8ce154f0e17fb1a82b651c.js",
     "service-worker.js": "/Math-Trainer/service-worker.js",
-    "static/css/main.7c05434f.chunk.css.map": "/Math-Trainer/static/css/main.7c05434f.chunk.css.map",
-    "static/js/2.877db1d4.chunk.js.LICENSE.txt": "/Math-Trainer/static/js/2.877db1d4.chunk.js.LICENSE.txt"
+    "static/css/main.06301782.chunk.css.map": "/Math-Trainer/static/css/main.06301782.chunk.css.map",
+    "static/js/2.7aad7661.chunk.js.LICENSE.txt": "/Math-Trainer/static/js/2.7aad7661.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.c91fb3ff.js",
-    "static/js/2.877db1d4.chunk.js",
-    "static/css/main.7c05434f.chunk.css",
-    "static/js/main.6a4119b4.chunk.js"
+    "static/js/2.7aad7661.chunk.js",
+    "static/css/main.06301782.chunk.css",
+    "static/js/main.a8308cc3.chunk.js"
   ]
 }
