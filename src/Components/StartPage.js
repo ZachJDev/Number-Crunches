@@ -29,7 +29,7 @@ export default class BasicTrainer extends Component {
     const modePaths = ["/Math-Trainer/Normal","/Math-Trainer/Zen", "/Math-Trainer/Blitz", "/Math-Trainer/Multiplication Tables"]
     return (
 <React.Fragment>
-       <div className='title-div'><h1 className={titleClass}>Number Cruncher: A Mental Math Workout</h1></div>
+       <div className='title-div'><h1 className={titleClass}>Number Crunches: A Mental Math Workout</h1></div>
       <Switch>
         <Route path="/Math-Trainer/options" exact render={(routeProps) =><Options {...routeProps} handleOptions={this.handleOptions}/>}/>
         <Route path={modePaths} exact render={routeProps => <MathTrainer {...routeProps} options={this.state.options} handleRestart={this.handleRestart} />}/>
