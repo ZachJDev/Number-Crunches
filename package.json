@@ -2,7 +2,7 @@
   "name": "react-math-trainer",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://zachjdev.github.io/Math-Trainer",
+  "homepage": "https://zachjdev.github.io/Number-Chrunches",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
