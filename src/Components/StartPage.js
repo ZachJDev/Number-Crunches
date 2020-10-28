@@ -15,7 +15,7 @@ export default class BasicTrainer extends Component {
   }
   handleOptions = (options) => {
     this.setState({ isGameOver: false, options }, () => {
-      this.props.history.push(`/Math-Trainer/${options.mode}`, this.state)
+      this.props.history.push(`/Number-Crunches/${options.mode}`, this.state)
     })
     
   };
