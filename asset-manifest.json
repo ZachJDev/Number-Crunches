@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Number-Crunches/static/css/main.06301782.chunk.css",
-    "main.js": "/Number-Crunches/static/js/main.d7db3260.chunk.js",
-    "main.js.map": "/Number-Crunches/static/js/main.d7db3260.chunk.js.map",
+    "main.js": "/Number-Crunches/static/js/main.a695f77c.chunk.js",
+    "main.js.map": "/Number-Crunches/static/js/main.a695f77c.chunk.js.map",
     "runtime-main.js": "/Number-Crunches/static/js/runtime-main.7dd9c7c8.js",
     "runtime-main.js.map": "/Number-Crunches/static/js/runtime-main.7dd9c7c8.js.map",
     "static/js/2.7aad7661.chunk.js": "/Number-Crunches/static/js/2.7aad7661.chunk.js",
     "static/js/2.7aad7661.chunk.js.map": "/Number-Crunches/static/js/2.7aad7661.chunk.js.map",
     "index.html": "/Number-Crunches/index.html",
-    "precache-manifest.1d1a972850ea3c6001bef0d0c9d67592.js": "/Number-Crunches/precache-manifest.1d1a972850ea3c6001bef0d0c9d67592.js",
+    "precache-manifest.36a14a64ddf89849a62fbecc12868690.js": "/Number-Crunches/precache-manifest.36a14a64ddf89849a62fbecc12868690.js",
     "service-worker.js": "/Number-Crunches/service-worker.js",
     "static/css/main.06301782.chunk.css.map": "/Number-Crunches/static/css/main.06301782.chunk.css.map",
     "static/js/2.7aad7661.chunk.js.LICENSE.txt": "/Number-Crunches/static/js/2.7aad7661.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.7dd9c7c8.js",
     "static/js/2.7aad7661.chunk.js",
     "static/css/main.06301782.chunk.css",
-    "static/js/main.d7db3260.chunk.js"
+    "static/js/main.a695f77c.chunk.js"
   ]
 }
