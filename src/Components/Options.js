@@ -58,7 +58,7 @@ export default class Options extends Component {
     let startClockEnable = Rules[this.state.mode].hasStartClock ? '' : 'disabled'
     let chooseSignsEnable = Rules[this.state.mode].allowedSigns.length > 1 ? '': 'disabled'
 
-    let rangeWarning = this.state.min > this.state.max ? <span className="warning">Min must not be higher than max.</span> : '';
+    let rangeWarning = Number(this.state.min) > Number(this.state.max) ? <span className="warning">Min must not be higher than max.</span> : '';
     let buttonClasses = "button start-button " + (!this.state.canStart ? 'disabled' : '');
 
     return (
@@ -121,6 +121,7 @@ export default class Options extends Component {
               <input
                 type="number"
                 name="totalProblems"
+                min={1}
                 value={this.state.totalProblems}
                 onChange={this.handleChange}
                 disabled={!Rules[this.state.mode].hasNumProbs}
