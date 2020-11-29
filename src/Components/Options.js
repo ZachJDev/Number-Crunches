@@ -144,6 +144,7 @@ export default class Options extends Component {
                 type="number"
                 value={this.state.startTime}
                 name="startTime"
+                min={2}
                 onChange={this.handleChange}
                 disabled={!Rules[this.state.mode].hasStartClock}
               />
