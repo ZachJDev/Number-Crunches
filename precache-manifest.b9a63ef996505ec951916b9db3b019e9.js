@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "02757ed301f74757ba1a7028b2220fb3",
+    "revision": "145ab2b7885f5d08b8465592ed2587f3",
     "url": "/Number-Crunches/index.html"
   },
   {
-    "revision": "bc52e5d277abf635e68a",
+    "revision": "9b60f179870c968574cf",
     "url": "/Number-Crunches/static/css/main.06301782.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Number-Crunches/static/js/2.7aad7661.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "bc52e5d277abf635e68a",
-    "url": "/Number-Crunches/static/js/main.a695f77c.chunk.js"
+    "revision": "9b60f179870c968574cf",
+    "url": "/Number-Crunches/static/js/main.27be3999.chunk.js"
   },
   {
     "revision": "8a28587d60106743756e",
