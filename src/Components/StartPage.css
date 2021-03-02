@@ -1,17 +1,17 @@
 .button {
     font-family: 'Overpass', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
-  font-size: 1.4rem;
-  background-color: white;
-  border: 1px solid black;
-  /* border-bottom: 3px solid black;
-  border-right: 3px solid black; */
-  
-  box-shadow: 3px 1px rgb(21, 187, 253);
+    font-size: 1.4rem;
+    background-color: white;
+    border: 1px solid black;
+    /* border-bottom: 3px solid black;
+    border-right: 3px solid black; */
 
-  margin-bottom: 4px;
+    box-shadow: 3px 1px rgb(21, 187, 253);
+
+    margin-bottom: 4px;
 
 }
 
@@ -21,19 +21,19 @@
 }
 
 .title-div {
-  background-color: white;
-  padding-top: 1rem;
-  z-index: 1;
+    background-color: white;
+    padding-top: 1rem;
+    z-index: 1;
 }
 
 .title {
-  text-align: center;
-  border-bottom: 1px solid black;
-  padding-bottom: .3rem;
-  margin-top: 0;
-  
+    text-align: center;
+    border-bottom: 1px solid black;
+    padding-bottom: .3rem;
+    margin-top: 0;
+
 }
 
 .title.hidden {
-  display: none;
+    display: none;
 }

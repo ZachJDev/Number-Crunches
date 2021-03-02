@@ -1,6 +1,7 @@
 # Math Trainer
 
-A small app I'm building to help me practice my metal arithmetic. Includes four learning modes: Normal, Blitz, Multiplication Tables, and Zen.
+A small app I'm building to help me practice my metal arithmetic. Includes four learning modes: Normal, Blitz,
+Multiplication Tables, and Zen.
 
 Check it out here: https://zachjdev.github.io/Number-Crunches/
 

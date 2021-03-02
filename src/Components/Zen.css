@@ -18,20 +18,22 @@
     margin: 0 auto;
     z-index: 0;
 }
+
 .Zen .problem-wrap .problem {
     font-size: 30px;
     display: flex;
 }
 
-.Zen .problem-wrap .input .answer{
+.Zen .problem-wrap .input .answer {
     font-size: 30px;
     border: none;
     border-bottom: 1px solid black;
     width: 60px;
     text-align: left;
-    
+
     /* border: none; */
 }
+
 .Zen .game-area .problem-list {
     z-index: -1;
 }
@@ -39,11 +41,13 @@
 .problem-wrap .input .answer:focus {
     outline: none;
 }
+
 .Zen.video {
     position: fixed;
     right: 10px;
     bottom: 10px;
 }
+
 .Zen .skip-button {
     display: none;
 }

@@ -9,14 +9,15 @@
 .problem {
     font-size: 5rem;
 }
-.problem-wrap .input .answer{
+
+.problem-wrap .input .answer {
     font-size: 30px;
     border: none;
     border-bottom: 1px solid black;
     width: 100%;
     font-size: 5rem;
     text-align: center;
-    
+
     /* border: none; */
 }
 

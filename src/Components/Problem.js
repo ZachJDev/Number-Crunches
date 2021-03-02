@@ -1,19 +1,20 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 
 import './Problem.css'
+
 export default class Problem extends Component {
 
-  render() {
-    let {num1, num2, sign, mode} = this.props
-    return (
-      <div className={` ${mode} problem-wrap`}>
-      <div className={` problem`}>
+    render() {
+        let {num1, num2, sign, mode} = this.props
+        return (
+            <div className={` ${mode} problem-wrap`}>
+                <div className={` problem`}>
         <span>
         {num1} {sign} {num2} = 
         </span>
-      </div>
-        {this.props.children}
-      </div>
-    );
-  }
+                </div>
+                {this.props.children}
+            </div>
+        );
+    }
 }
