@@ -23,6 +23,10 @@ export default class Options extends Component {
         this.radios = [...Object.values(Rules)];
     }
 
+    handleCanStart = (state) => {
+        return Number(state.min) <= Number(state.max) && state.signs.length > 0
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
         if (this.state.canStart) {
@@ -37,7 +41,7 @@ export default class Options extends Component {
         } else {
             this.setState({[event.target.name]: event.target.value});
             this.setState(state => {
-                return {canStart: Number(state.min) <= Number(state.max)}
+                return {canStart: this.handleCanStart(state)}
             })
         }
 
@@ -49,8 +53,11 @@ export default class Options extends Component {
         let signs = this.state.signs;
         if (signs.includes(value)) signs = signs.filter((s) => s !== value);
         else signs.push(value);
-        this.setState({signs});
-
+        this.setState({signs}, () => {
+            this.setState((state) => {
+                return {canStart: this.handleCanStart(state)}
+            })
+        })
     };
 
     render() {
@@ -61,7 +68,12 @@ export default class Options extends Component {
         let chooseSignsEnable = Rules[this.state.mode].allowedSigns.length > 1 ? '' : 'disabled'
 
         let rangeWarning = Number(this.state.min) > Number(this.state.max) ?
-            <span className="warning">Min must not be higher than max.</span> : '';
+            <p>Min must not be higher than max.</p> : '';
+        let signWarning = this.state.signs.length === 0 ?
+            <p>Must have a sign selected.</p> : '';
+        let warningSpan = <div className="warning">{rangeWarning} {signWarning}</div>
+
+
         let buttonClasses = "button start-button " + (!this.state.canStart ? 'disabled' : '');
 
         return (
@@ -88,8 +100,7 @@ export default class Options extends Component {
                             <div className="mode-options-col">
                                 <div className="mode-max-min">
                                     <div className="mode-max">
-                                        <h2 id="range" className={`form-area-label`}>Range {rangeWarning}</h2>
-
+                                        <h2 id="range" className={`form-area-label`}>Range </h2>
                                         <label htmlFor="max">Max:</label>
                                         <input
                                             type="number"
@@ -152,9 +163,10 @@ export default class Options extends Component {
                                     />
                                 </div>
                             </div>
-
+                            <div className="start-warning">
                             <input className={buttonClasses} type="submit" value="Start"/>
-
+                            {warningSpan}
+                            </div>
                         </div>
                     </div>
                 </form>

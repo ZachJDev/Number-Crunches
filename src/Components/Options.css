@@ -80,11 +80,16 @@
 }
 
 .warning {
-    position: absolute;
+    /*position: absolute;*/
     margin-top: .2rem;
     margin-left: 10px;
     color: rgb(255, 64, 64);
     font-size: .8rem;
+}
+
+.start-button {
+    width: 20%;
+    justify-self: center;
 }
 
 .button.disabled {
@@ -93,6 +98,13 @@
 
 .button.disabled:hover {
     box-shadow: 3px 1px gray;
+}
+
+.start-warning {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 @media all and (max-width: 1200px) {
