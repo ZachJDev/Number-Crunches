@@ -7,7 +7,7 @@ Check it out here: https://zachjdev.github.io/Number-Crunches/
 
 ## TODO:
 
-- [ ] Fix a layout error caused by the new flex rules I added.
+- [x] Fix a layout error caused by the new flex rules I added.
 - [x] Fix the major error where a game can be started with no signs selected. 
 ___
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
