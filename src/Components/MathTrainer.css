@@ -1,5 +1,4 @@
 .game-area {
-    height: 100%;
     margin: 1rem auto;
     /* border: 1px solid black; */
     width: 50rem;
@@ -22,6 +21,19 @@
 .pre-timer {
     font-size: 8rem;
     margin: 15% auto;
+}
+
+@media all and (max-width: 1200px) {
+
+    .game-area {
+        height: 70vh;
+        width: 98vw;
+    }
+
+}
+
+@media all and (max-width: 300px) {
+
 }
 
 

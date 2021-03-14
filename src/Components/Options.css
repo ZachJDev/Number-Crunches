@@ -129,6 +129,9 @@
         flex-direction: row;
         flex-wrap: wrap;
     }
+    .button {
+        font-size: 50rem;
+    }
 
 }
 

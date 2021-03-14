@@ -1,5 +1,4 @@
 .Zen .game-area {
-    height: 100%;
     margin: 0 auto;
     /* border: 1px solid black; */
     width: 50rem;
@@ -50,4 +49,21 @@
 
 .Zen .skip-button {
     display: none;
+}
+
+@media all and (max-width: 1200px) {
+ .Zen .game-area {
+     height: 40vh;
+     width: 100%;
+     /*justify-content: center;*/
+ }
+    .Zen .video {
+        position: static;
+        margin-top: 5rem;
+    }
+
+}
+
+@media all and (max-width: 300px) {
+
 }

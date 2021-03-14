@@ -11,7 +11,6 @@
 }
 
 .problem-wrap .input .answer {
-    font-size: 30px;
     border: none;
     border-bottom: 1px solid black;
     width: 100%;
@@ -35,4 +34,13 @@
     z-index: -1;
     /* width: 25%; */
     /* align-items: flex-start; */
+}
+@media all and (max-width: 1200px) {
+
+
+
+}
+
+@media all and (max-width: 300px) {
+
 }

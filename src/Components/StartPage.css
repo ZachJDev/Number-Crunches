@@ -16,7 +16,7 @@
 }
 
 .button:hover {
-    box-shadow: 2px 0px rgb(21, 187, 253);
+    box-shadow: 2px 0 rgb(21, 187, 253);
     cursor: pointer;
 }
 
@@ -36,4 +36,16 @@
 
 .title.hidden {
     display: none;
+}
+@media all and (max-width: 1200px) {
+
+    .button {
+        font-size: 1rem;
+        padding: 4px;
+    }
+
+}
+
+@media all and (max-width: 300px) {
+
 }
