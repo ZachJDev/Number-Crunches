@@ -5,6 +5,8 @@ import ProblemList from './ProblemList'
 import Input from './Input'
 import Timer from './Timer'
 
+const MAX_PROBLEMS = Math.floor(window.innerHeight / 39) // 39px from the CSS
+
 export default class GameArea extends Component {
     handleInput = (val) => {
         this.props.handleInput(val)
@@ -21,8 +23,10 @@ export default class GameArea extends Component {
     }
 
     render() {
+
         const {num1, num2, answer, sign} = this.props.problem
         const {input, mode, isGameOver, timeLeft, timeTaken, problems, hasSkip, practice} = this.props
+        const problemsStartPos = Math.max(0, problems.length - MAX_PROBLEMS)
         let timerMessage;
         // I'm not a fan of this nested statement...
         if (mode !== 'Zen' && !practice) {
@@ -41,7 +45,7 @@ export default class GameArea extends Component {
         return (
             <div className="game-area">
                 {/* Problem List */}
-                {mode === "Zen" ? <ProblemList mode={mode} problems={problems}/>
+                {mode === "Zen" ? <ProblemList mode={mode} problems={problems.slice(problemsStartPos)}/>
                     : null}
                 {/* Timer / Message */}
                 {timerMessage}
