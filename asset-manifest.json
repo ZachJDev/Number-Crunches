@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/Number-Crunches/static/css/main.2cf89e26.chunk.css",
-    "main.js": "/Number-Crunches/static/js/main.37d6d175.chunk.js",
-    "main.js.map": "/Number-Crunches/static/js/main.37d6d175.chunk.js.map",
+    "main.css": "/Number-Crunches/static/css/main.054d78e4.chunk.css",
+    "main.js": "/Number-Crunches/static/js/main.47a87bc9.chunk.js",
+    "main.js.map": "/Number-Crunches/static/js/main.47a87bc9.chunk.js.map",
     "runtime-main.js": "/Number-Crunches/static/js/runtime-main.c9f3164b.js",
     "runtime-main.js.map": "/Number-Crunches/static/js/runtime-main.c9f3164b.js.map",
     "static/js/2.46987126.chunk.js": "/Number-Crunches/static/js/2.46987126.chunk.js",
     "static/js/2.46987126.chunk.js.map": "/Number-Crunches/static/js/2.46987126.chunk.js.map",
     "index.html": "/Number-Crunches/index.html",
-    "static/css/main.2cf89e26.chunk.css.map": "/Number-Crunches/static/css/main.2cf89e26.chunk.css.map",
+    "static/css/main.054d78e4.chunk.css.map": "/Number-Crunches/static/css/main.054d78e4.chunk.css.map",
     "static/js/2.46987126.chunk.js.LICENSE.txt": "/Number-Crunches/static/js/2.46987126.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.c9f3164b.js",
     "static/js/2.46987126.chunk.js",
-    "static/css/main.2cf89e26.chunk.css",
-    "static/js/main.37d6d175.chunk.js"
+    "static/css/main.054d78e4.chunk.css",
+    "static/js/main.47a87bc9.chunk.js"
   ]
 }
