@@ -24,7 +24,8 @@ class GameOverMessage extends Component {
         } else timeMessage = `${timeElapsed} seconds`;
         return (
             <div>
-                <h1>{`You solved ${solved} problems in ${timeMessage}!`}</h1>
+                <h1>{`You solved ${solved} problems in ${timeMessage} and scored ${this.props.score} points!`}</h1>
+
                 <h2>{message}</h2>
                 <button className="button" onClick={this.handleRestart}>Try again?</button>
             </div>

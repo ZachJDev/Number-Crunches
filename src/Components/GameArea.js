@@ -29,6 +29,7 @@ export default class GameArea extends Component {
        <Timer time={timeLeft || timeTaken || 0}/>
       ) : (
         <GameOverMessage
+            score={this.props.score || 'blug'}
           solved={problems.length}
           timeElapsed={timeTaken}
           goal={3}
