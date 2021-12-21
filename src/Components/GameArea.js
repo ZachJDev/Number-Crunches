@@ -36,7 +36,9 @@ export default class GameArea extends Component {
           goHome={this.handleOptions}
         />
       )
-    } else timerMessage = null
+    } else {
+        timerMessage = null;
+    }
         return (
              <div className="game-area">
             {/* Problem List */}
@@ -64,13 +66,13 @@ export default class GameArea extends Component {
                 />
               </Problem>
             ) : null}
-  
+
             <button
               className="button options-button"
               onClick={this.goToOptions}
             >
               Select a new mode
-            </button>         
+            </button>
             </div>
         )
     }

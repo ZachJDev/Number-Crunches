@@ -27,7 +27,9 @@ class GameMode {
     this.challengeIncrease = 0;
     this.max = Number(this.max);
     this.min = Number(this.min);
+    this.hasScore = true;
   }
+
   compute(n1, n2, s) {
     if (s === "×") return n1 * n2;
     if (s === "+") return n1 + n2;
@@ -53,11 +55,34 @@ class GameMode {
   getNewNumbers() {
     return [this.getRandomInt(), this.getRandomInt()];
   }
+
   isFinished() {
     return false;
   }
+
   increaseChallenge() {
     this.max += this.challengeIncrease;
+  }
+
+  computeScore({ timeTaken, problem }) {
+    const getBonus = (signCheck) => {
+      if (signCheck === "/") return 0.5;
+      if (signCheck === "*") return 0.3;
+      return 0;
+    };
+    const BASE_SCORE = 10;
+    const BASE_DIFFICULTY = 0.5;
+
+    let { num1, num2, sign } = problem;
+    if (sign === "") {
+      return 0;
+    }
+    let signBonus = getBonus(sign);
+    let score = BASE_SCORE / ((timeTaken / 1000) * 2); // base score divided by 2 for each second taken.
+    if (num1 === 0 || num2 === 0) return score * BASE_DIFFICULTY;
+    let difficulty = BASE_DIFFICULTY + (Math.log(num1) + Math.log(num2));
+
+    return Math.floor(score * (difficulty + signBonus));
   }
 
   static newGame(options) {
@@ -70,7 +95,8 @@ class GameMode {
         return new Zen(options);
       case "Multiplication Tables":
         return new MultiplicationTables(options);
-      default: return new Normal(options)
+      default:
+        return new Normal(options);
     }
   }
 }
@@ -80,6 +106,7 @@ class Normal extends GameMode {
     super(params);
     this.challengeIncrease = 5;
   }
+
   static getDefaultRules() {
     return Object.assign(new BASE_RULES(), {
       id: "Normal",
@@ -98,6 +125,7 @@ class MultiplicationTables extends GameMode {
     this.clockDirection = 1;
     this.hasSkip = false;
   }
+
   initGame() {
     this.table = [];
     this.problem = 0;
@@ -107,6 +135,7 @@ class MultiplicationTables extends GameMode {
       }
     }
   }
+
   getNewNumbers() {
     let nums;
     if (this.inOrder) {
@@ -119,6 +148,7 @@ class MultiplicationTables extends GameMode {
     });
     return nums;
   }
+
   isFinished() {
     if (this.problem === this.table.length) {
       this.initGame();
@@ -145,6 +175,7 @@ class Zen extends GameMode {
     super(params);
     this.hasTimer = false;
   }
+
   static getDefaultRules() {
     return Object.assign(new BASE_RULES(), {
       id: "Zen",
@@ -163,13 +194,7 @@ class Blitz extends GameMode {
 
   // I don't like this being a method. I need to figure a way to keep the game logic separate from the game rules
   isFinished(probNum) {
-    // eslint-disable-next-line eqeqeq
-    if (probNum == this.totalProblems) {
-      // total problems is stored as a string.
-      // Thank you past me.
-      return true;
-    }
-    return false;
+    return probNum.toString() === this.totalProblems;
   }
 
   static getDefaultRules() {
@@ -183,4 +208,4 @@ class Blitz extends GameMode {
 }
 
 export default GameMode;
-export { Normal, MultiplicationTables, Blitz, Zen };
+export {Normal, MultiplicationTables, Blitz, Zen};

@@ -5,6 +5,9 @@ import Video from "./Video";
 
 import "./MathTrainer.css";
 import "./Zen.css";
+
+const PRE_GAME_TIME = 3;
+
 class MathTrainer extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +18,8 @@ class MathTrainer extends Component {
         : this.props.history.location.state.options;
     this.Game = GameMode.newGame(options);
     this.state = {
+      score: 0,
+      lastAnswerTime: Date.now() + PRE_GAME_TIME * 1000,
       practice: this.Game.practice,
       problem: { num1: 0, num2: 0, sign: "" },
       input: "",
@@ -22,7 +27,7 @@ class MathTrainer extends Component {
         this.Game.hasTimer || !this.Game.practice || this.Game.startTime,
       isGameOver: true,
       problems: [],
-      preGameTime: 3,
+      preGameTime: PRE_GAME_TIME,
     };
   }
 
@@ -40,15 +45,24 @@ class MathTrainer extends Component {
     } else {
       answer = this.Game.compute(num1, num2, sign);
     }
+
+    if (!wasSkipped) {
+      this.setState((s) => ({
+        score:
+          this.Game.hasScore &&
+          s.score +
+            (this.Game.computeScore({
+              timeTaken: Date.now() - s.lastAnswerTime,
+              problem: s.problem,
+            }) || 0),
+        lastAnswerTime: Date.now(),
+        timeLeft: s.timeLeft + this.Game.bonus,
+      }));
+    }
     this.setState({
       problem: { num1, num2, answer, sign },
       input: "",
     });
-    if (!wasSkipped) {
-      this.setState((s) => ({
-        timeLeft: s.timeLeft + this.Game.bonus,
-      }));
-    }
   };
 
   handleInput = (val) => {
@@ -56,7 +70,7 @@ class MathTrainer extends Component {
     this.setState({ input: val });
     // It's been like a month since I wrote this line, and I can't remember whether I need the double eqs.
     // eslint-disable-next-line
-    if (this.state.problem.answer == val) { 
+    if (this.state.problem.answer == val) {
       this.setState(
         {
           problems: [
@@ -138,10 +152,12 @@ class MathTrainer extends Component {
       });
     }
   }
+
   componentWillUnmount() {
     clearInterval(this.state.timerTimeLeft);
     clearInterval(this.state.timerTimeTaken);
   }
+
   render() {
     return (
       <div className={`${this.Game.mode}`}>
