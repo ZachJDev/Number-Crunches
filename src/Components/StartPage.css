@@ -1,39 +1,51 @@
 .button {
     font-family: 'Overpass', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
-  font-size: 1.4rem;
-  background-color: white;
-  border: 1px solid black;
-  /* border-bottom: 3px solid black;
-  border-right: 3px solid black; */
-  
-  box-shadow: 3px 1px rgb(21, 187, 253);
+    font-size: 1.4rem;
+    background-color: white;
+    border: 1px solid black;
+    /* border-bottom: 3px solid black;
+    border-right: 3px solid black; */
 
-  margin-bottom: 4px;
+    box-shadow: 3px 1px rgb(21, 187, 253);
+
+    margin-bottom: 4px;
 
 }
 
 .button:hover {
-    box-shadow: 2px 0px rgb(21, 187, 253);
+    box-shadow: 2px 0 rgb(21, 187, 253);
     cursor: pointer;
 }
 
 .title-div {
-  background-color: white;
-  padding-top: 1rem;
-  z-index: 1;
+    background-color: white;
+    padding-top: 1rem;
+    z-index: 1;
 }
 
 .title {
-  text-align: center;
-  border-bottom: 1px solid black;
-  padding-bottom: .3rem;
-  margin-top: 0;
-  
+    text-align: center;
+    border-bottom: 1px solid black;
+    padding-bottom: .3rem;
+    margin-top: 0;
+
 }
 
 .title.hidden {
-  display: none;
+    display: none;
+}
+@media all and (max-width: 1200px) {
+
+    .button {
+        font-size: 1rem;
+        padding: 4px;
+    }
+
+}
+
+@media all and (max-width: 300px) {
+
 }
