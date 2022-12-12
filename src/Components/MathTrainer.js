@@ -178,7 +178,7 @@ class MathTrainer extends Component {
         {/* Video */}
         {this.Game.mode === "Zen" ? (
           <Video
-            url={"https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1"}
+            url={"https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1"}
             mode={this.Game.mode}
           />
         ) : null}
