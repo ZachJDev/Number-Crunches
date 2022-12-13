@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Number-Crunches/static/css/main.054d78e4.chunk.css",
-    "main.js": "/Number-Crunches/static/js/main.47a87bc9.chunk.js",
-    "main.js.map": "/Number-Crunches/static/js/main.47a87bc9.chunk.js.map",
+    "main.js": "/Number-Crunches/static/js/main.59ad7940.chunk.js",
+    "main.js.map": "/Number-Crunches/static/js/main.59ad7940.chunk.js.map",
     "runtime-main.js": "/Number-Crunches/static/js/runtime-main.c9f3164b.js",
     "runtime-main.js.map": "/Number-Crunches/static/js/runtime-main.c9f3164b.js.map",
     "static/js/2.46987126.chunk.js": "/Number-Crunches/static/js/2.46987126.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.c9f3164b.js",
     "static/js/2.46987126.chunk.js",
     "static/css/main.054d78e4.chunk.css",
-    "static/js/main.47a87bc9.chunk.js"
+    "static/js/main.59ad7940.chunk.js"
   ]
 }
